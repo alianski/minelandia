@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MineLandia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Login ──────────────────────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="logo-pick">⛏</span>
+      <h1>MineLandia</h1>
+      <p class="login-tagline">Kop głębiej. Zdobywaj więcej.</p>
+    </div>
+    <input id="login-username" type="text" placeholder="Nazwa gracza" maxlength="20" autocomplete="off" />
+    <input id="login-password" type="password" placeholder="Hasło" autocomplete="off" />
+    <button id="login-btn">Dołącz do świata</button>
+    <p id="login-error" class="login-error"></p>
+    <p class="login-hint">Nowe konto tworzone automatycznie przy pierwszym logowaniu.</p>
+  </div>
+</div>
+
+<!-- ── Game ───────────────────────────────────────────────────────────────── -->
+<div id="game-ui" style="display:none">
+
+  <!-- Topbar -->
+  <div id="topbar">
+    <div class="topbar-left">
+      <span class="logo-small">⛏ MineLandia</span>
+    </div>
+    <div class="topbar-center">
+      <div class="stat-pill"><span>⭐</span><span id="hud-level">Lv.1</span></div>
+      <div class="xp-bar-wrap">
+        <div id="xp-bar"></div>
+        <span id="xp-label">0 / 100 XP</span>
+      </div>
+      <div class="stat-pill"><span>🪙</span><span id="hud-coins">100</span></div>
+    </div>
+    <div class="topbar-right">
+      <button class="hud-btn" id="btn-inventory">🎒 Ekwipunek</button>
+      <button class="hud-btn" id="btn-craft">⚒ Crafting</button>
+      <button class="hud-btn" id="btn-leaderboard">🏆 Ranking</button>
+      <span id="hud-username" class="hud-username"></span>
+    </div>
+  </div>
+
+  <!-- Search bar — top left under topbar -->
+  <div id="search-bar">
+    <input id="search-input" type="text" placeholder='Szukaj: "0,0" | "block:granite" | "depth:30"' spellcheck="false" />
+    <button id="search-btn">🔍</button>
+  </div>
+
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Depth / coord indicator -->
+  <div id="depth-indicator">
+    <span id="depth-val">Kliknij blok aby zobaczyć głębokość</span>
+  </div>
+
+  <!-- Minimap -->
+  <canvas id="minimap" width="160" height="160"></canvas>
+
+  <!-- Block popup — bottom right -->
+  <div id="block-popup" style="display:none">
+    <div class="popup-header">
+      <span id="popup-ore-dot"></span>
+      <span id="popup-block-name">Blok</span>
+      <span id="popup-depth-badge">głęb. 0</span>
+    </div>
+    <div class="popup-hp-row">
+      <span class="popup-label">HP</span>
+      <div class="hp-bar-wrap">
+        <div id="popup-hp-bar"></div>
+        <span id="popup-hp-text">100 / 100</span>
+      </div>
+    </div>
+    <div id="popup-ore-row" style="display:none" class="popup-ore-row">
+      <span class="popup-label">Ruda</span>
+      <span id="popup-ore-name"></span>
+      <span id="popup-ore-amount"></span>
+    </div>
+    <div id="popup-ranking" class="popup-ranking"></div>
+    <div class="popup-pickaxe-row">
+      <span class="popup-label">Kilof</span>
+      <span id="popup-pickaxe-name">Drewniane</span>
+      <span id="popup-pickaxe-dmg" class="dmg-badge">⚡5</span>
+    </div>
+    <button id="btn-mine" class="mine-btn">⛏ Kop!</button>
+  </div>
+
+  <!-- Notifications top-right -->
+  <div id="notifications"></div>
+
+  <!-- Drop feed left -->
+  <div id="drop-feed"></div>
+
+  <!-- Online players -->
+  <div id="online-panel">
+    <div class="online-title">🟢 Online (<span id="online-count">1</span>)</div>
+    <div id="online-list"></div>
+  </div>
+
+  <!-- ── Inventory Modal ──────────────────────────────────────────────────── -->
+  <div id="modal-inventory" class="modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header"><h2>🎒 Ekwipunek</h2><button class="modal-close">✕</button></div>
+      <div class="modal-section-title">Rudy i materiały</div>
+      <div id="inv-grid" class="inv-grid"></div>
+      <div class="modal-section-title">Kilofy</div>
+      <div id="pickaxe-list" class="pickaxe-list"></div>
+    </div>
+  </div>
+
+  <!-- ── Crafting Modal ───────────────────────────────────────────────────── -->
+  <div id="modal-craft" class="modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header"><h2>⚒ Crafting — Kilofy</h2><button class="modal-close">✕</button></div>
+      <div id="craft-grid" class="craft-grid"></div>
+    </div>
+  </div>
+
+  <!-- ── Leaderboard Modal ────────────────────────────────────────────────── -->
+  <div id="modal-leaderboard" class="modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header"><h2>🏆 Ranking graczy</h2><button class="modal-close">✕</button></div>
+      <div id="leaderboard-list" class="leaderboard-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="const.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
