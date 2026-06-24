@@ -1,4 +1,4 @@
-# ⛏ DeepDig — Multiplayer 2D Mining Game
+# ⛏ MineLandia Multiplayer 2D Mining Game (AI)
 
 Przeglądarkowa gra kooperacyjna w kopanie. Widok 2D z góry, świat generowany proceduralnie, multiplayer w czasie rzeczywistym przez WebSocket.
 
