@@ -34,7 +34,9 @@ function generateBlock(x, y, depth) {
   let oreAmount = 0;
 
   // Eligible ores for this depth
-  const eligibleOres = ORE_TIERS.filter(o => o.maxDepth >= depth >= o.minDepth);
+  const eligibleOres = ORE_TIERS.filter(
+    o => depth >= o.minDepth && depth <= o.maxDepth
+  );
   if (eligibleOres.length > 0) {
     // Try each ore from rarest to most common
     const sorted = [...eligibleOres].sort((a, b) => a.dropChance - b.dropChance);

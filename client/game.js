@@ -65,7 +65,7 @@ function generateBlock(x, y, depth) {
   const depthMult = 1 + Math.log1p(depth) * 0.3;
   let maxHp = Math.floor(tier.baseHp * depthMult);
   let ore = null, oreAmount = 0, oreColor = null;
-  const eligible = ORE_TIERS.filter(o => o.maxDepth >= depth >= o.minDepth).sort((a,b) => a.dropChance - b.dropChance);
+  const eligible = ORE_TIERS.filter(o => depth >= o.minDepth && o.maxDepth >= depth).sort((a,b) => a.dropChance - b.dropChance);
   if (eligible.length) {
     const roll = rng(); let cum = 0;
     for (const o of eligible) {
