@@ -20,7 +20,7 @@ node server/index.js
 ## Struktura projektu
 
 ```
-deepdig/
+minelandia/
 ├── server/
 │   ├── index.js        # Express + Socket.io — główna logika serwera
 │   └── worldgen.js     # Generowanie świata (deterministic, seed-based)
